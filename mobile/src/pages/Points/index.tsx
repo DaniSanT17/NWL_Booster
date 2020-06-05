@@ -15,9 +15,10 @@ interface Item {
   image_url: string;
 }
 
-interface Points {
+interface Point {
   id: number;
   image: string;
+  image_url: string;
   name: string;
   latitude: number,
   longitude: number;
@@ -30,7 +31,7 @@ interface Params {
 
 const Points: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
-  const [points, setPoints] = useState<Points[]>([]);
+  const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
 
@@ -129,7 +130,7 @@ const Points: React.FC = () => {
                     longitude: point.longitude,
                   }} >
                   <View style={styles.mapMarkerContainer}>
-                    <Image style={styles.mapMarkerImage} source={{ uri: point.image }} />
+                    <Image style={styles.mapMarkerImage} source={{ uri: point.image_url.replace('localhost', '192.168.0.10') }} />
                     <Text style={styles.mapMarkerTitle}>{point.name}</Text>
                   </View>
                 </Marker>

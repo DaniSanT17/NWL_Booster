@@ -14,6 +14,7 @@ interface Params {
 interface Data {
   point: {
     image: string;
+    image_url: string;
     name: string;
     email: string;
     whatsapp: string;
@@ -47,14 +48,14 @@ const Detail: React.FC = () => {
     return null;
   }
 
-  function handleComposeMail(){
+  function handleComposeMail() {
     MailComposer.composeAsync({
       subject: 'Interesse na coleta de resíduos',
       recipients: [data.point.email],
     })
   }
 
-  function handleWhatsapp(){
+  function handleWhatsapp() {
     Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho interesse sobre coleta de residuos`);
   }
 
@@ -64,7 +65,7 @@ const Detail: React.FC = () => {
         <TouchableOpacity onPress={handleNavigateBack}>
           <Icon name="arrow-left" size={20} color="#34cb79" />
         </TouchableOpacity>
-        <Image style={styles.pointImage} source={{ uri: data.point.image }} />
+        <Image style={styles.pointImage} source={{ uri: data.point.image_url.replace('localhost', '192.168.0.10') }} />
         <Text style={styles.pointName}>{data.point.name}</Text>
         <Text style={styles.pointItems}>
           {data.items.map(item => item.title).join(', ')}
